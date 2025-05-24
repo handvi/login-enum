@@ -33,3 +33,16 @@ def try_password(username,password):
         print(f"{username}:{password}")
         return False
 
+valid_data = []
+with open(USERNAME, 'r')  as file:
+  for user in file:
+    user = user.strip()
+    if check_user(user):
+        valid_data.append(user)
+
+for valid_user in valid_data:
+    with open(PASSWORD, 'r')  as file:
+        for pw in file:
+            pw = pw.strip()
+            if try_password(valid_user, pw):
+                break
